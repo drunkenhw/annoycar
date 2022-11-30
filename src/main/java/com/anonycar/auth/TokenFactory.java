@@ -50,11 +50,13 @@ public class TokenFactory implements TokenManager {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException ex) {
-            Long id = ex.getClaims().get("id", Long.class);
-            String nickname = ex.getClaims().get("nickname", String.class);
-            return new AuthMember(id, nickname);
+            return getAuthMember(ex.getClaims());
         }
 
+        return getAuthMember(claims);
+    }
+
+    private AuthMember getAuthMember(Claims claims) {
         Long id = claims.get("id", Long.class);
         String nickname = claims.get("nickname", String.class);
         return new AuthMember(id, nickname);

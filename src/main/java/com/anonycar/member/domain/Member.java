@@ -18,6 +18,7 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
     private String name;
@@ -25,6 +26,7 @@ public class Member {
     @Embedded
     private Password password;
 
+    @Column(unique = true)
     private String nickname;
 
     @Enumerated(EnumType.STRING)

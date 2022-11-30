@@ -19,7 +19,7 @@ public class MemberController {
     private final MemberService memberService;
     private final TokenManager tokenManager;
 
-    @PostMapping("member/join")
+    @PostMapping("/join")
     public String join(@RequestBody JoinRequest joinRequest) {
         memberService.join(joinRequest);
         return "join";

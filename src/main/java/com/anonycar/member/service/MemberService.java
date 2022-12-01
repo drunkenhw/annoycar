@@ -3,6 +3,7 @@ package com.anonycar.member.service;
 import com.anonycar.member.dto.AuthMember;
 import com.anonycar.member.dto.JoinRequest;
 import com.anonycar.member.dto.LoginRequest;
+import com.anonycar.member.dto.UniqueResponse;
 import com.anonycar.member.repository.MemberRepository;
 import com.anonycar.member.domain.Brand;
 import com.anonycar.member.domain.Member;
@@ -36,5 +37,15 @@ public class MemberService {
         Member member = memberRepository.findByEmailAndPasswordValue(loginRequest.getEmail(), password)
                 .orElseThrow(IllegalArgumentException::new);
         return new AuthMember(member.getId(), member.getNickname());
+    }
+
+    public UniqueResponse validateUniqueEmail(String email) {
+        boolean present = !memberRepository.existsByEmail(email);
+        return new UniqueResponse(present);
+    }
+
+    public UniqueResponse validateUniqueNickname(String nickname) {
+        boolean present = !memberRepository.existsByNickname(nickname);
+        return new UniqueResponse(present);
     }
 }
